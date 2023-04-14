@@ -1,5 +1,6 @@
 package UttamMalik.Ecommerce.controller;
 
+import UttamMalik.Ecommerce.global.GlobalData;
 import UttamMalik.Ecommerce.model.Category;
 import UttamMalik.Ecommerce.service.CategoryService;
 import UttamMalik.Ecommerce.service.ProductService;
@@ -18,6 +19,7 @@ public class HomeController {
 
     @GetMapping({"/", "/home"})
         public String home(Model model){
+        model.addAttribute("cartCount", GlobalData.cart.size());
         return "index";
     }
 
@@ -25,6 +27,7 @@ public class HomeController {
     public String shop(Model model){
         model.addAttribute("categories",categoryService.getAllCategory());
         model.addAttribute("products",productService.getAllproduct());
+        model.addAttribute("cartCount",GlobalData.cart.size());
         return "shop";
     }
 
@@ -32,12 +35,14 @@ public class HomeController {
     public String shopByCategory(Model model, @PathVariable int id){
         model.addAttribute("categories",categoryService.getAllCategory());
         model.addAttribute("products",productService.getAllProductByCategoryId(id));
+        model.addAttribute("cartCount",GlobalData.cart.size());
         return "shop";
     }
 
     @GetMapping("/shop/viewproduct/{id}")
     public String ViewProduct(Model model, @PathVariable int id){
         model.addAttribute("product",productService.getProductById(id).get());
+        model.addAttribute("cartCount",GlobalData.cart.size());
         return "viewProduct";
     }
 }

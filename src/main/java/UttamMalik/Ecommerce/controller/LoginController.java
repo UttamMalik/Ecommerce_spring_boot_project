@@ -1,5 +1,6 @@
 package UttamMalik.Ecommerce.controller;
 
+import UttamMalik.Ecommerce.global.GlobalData;
 import UttamMalik.Ecommerce.model.Role;
 import UttamMalik.Ecommerce.model.User;
 import UttamMalik.Ecommerce.repository.RoleRepository;
@@ -27,6 +28,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(){
+        GlobalData.cart.clear();
         return "login";
     }
     @GetMapping("/register")
